@@ -1,22 +1,6 @@
-
-4 arquivos alterados​
-+
-1177
--
-0
-linhas alteradas
-Pesquisar dentro do código
- 
-‎chat.html‎
-+ 422
-Linhas alteradas: 422 adições e 0 exclusões
-‎index.html‎
-+ 401
-Linhas alteradas: 401 adições e 0 exclusões
-Número da linha do arquivo original	Número da linha diferente	Mudança de linha diferencial
-@@ -0,0 +1,401 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,6 +12,7 @@ Número da linha do arquivo original	Número da linha diferente	Mudança de linh
         body {
             overflow-x: hidden;
         }
+
         header {
             padding: 24px 40px;
             display: flex;
@@ -35,6 +20,7 @@ Número da linha do arquivo original	Número da linha diferente	Mudança de linh
             align-items: center;
             z-index: 10;
         }
+
         .logo {
             font-size: 1.4rem;
             font-weight: 600;
@@ -45,10 +31,12 @@ Número da linha do arquivo original	Número da linha diferente	Mudança de linh
             text-decoration: none;
             letter-spacing: -0.5px;
         }
+
         .logo i {
             color: var(--primary-color);
             filter: drop-shadow(0 0 8px var(--primary-color));
         }
+
         /* --- HERO SECTION --- */
         .hero {
             position: relative;
@@ -61,6 +49,7 @@ Número da linha do arquivo original	Número da linha diferente	Mudança de linh
             padding: 80px 20px;
             margin-bottom: 40px;
         }
+
         .robot-icon-wrapper {
             width: 100px;
             height: 100px;
@@ -72,20 +61,25 @@ Número da linha do arquivo original	Número da linha diferente	Mudança de linh
             margin-bottom: 24px;
             animation: floatRobot 6s infinite ease-in-out;
         }
+
         @keyframes floatRobot {
+
             0%,
             100% {
                 transform: translateY(0);
             }
+
             50% {
                 transform: translateY(-10px);
             }
         }
+
         .hero i {
             font-size: 56px;
             color: var(--primary-color);
             filter: drop-shadow(0 0 15px var(--primary-color));
         }
+
         .hero h1 {
             font-size: 3.5rem;
             font-weight: 700;
@@ -96,6 +90,7 @@ Número da linha do arquivo original	Número da linha diferente	Mudança de linh
             background-clip: text;
             color: transparent;
         }
+
         .hero p {
             font-size: 1.25rem;
             color: var(--text-muted);
@@ -104,6 +99,7 @@ Número da linha do arquivo original	Número da linha diferente	Mudança de linh
             font-weight: 300;
             margin-bottom: 32px;
         }
+
         .cta-button {
             display: inline-flex;
             align-items: center;
@@ -121,6 +117,7 @@ Número da linha do arquivo original	Número da linha diferente	Mudança de linh
             position: relative;
             overflow: hidden;
         }
+
         .cta-button:hover {
             background: var(--primary-color);
             color: var(--bg-color);
@@ -128,6 +125,7 @@ Número da linha do arquivo original	Número da linha diferente	Mudança de linh
             transform: translateY(-4px);
             box-shadow: 0 10px 30px var(--card-border);
         }
+
         /* --- FEATURES SECTION --- */
         .features {
             display: grid;
@@ -139,6 +137,7 @@ Número da linha do arquivo original	Número da linha diferente	Mudança de linh
             padding: 0 20px;
             z-index: 5;
         }
+
         .feature-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
@@ -149,6 +148,7 @@ Número da linha do arquivo original	Número da linha diferente	Mudança de linh
             position: relative;
             overflow: hidden;
         }
+
         .feature-card::before {
             content: '';
             position: absolute;
@@ -159,11 +159,13 @@ Número da linha do arquivo original	Número da linha diferente	Mudança de linh
             background: var(--primary-color);
             opacity: 0.3;
         }
+
         .feature-card:hover {
             transform: translateY(-8px);
             border-color: var(--primary-color);
             box-shadow: 0 10px 40px var(--card-border);
         }
+
         .feature-card i {
             font-size: 28px;
             color: var(--primary-color);
@@ -171,17 +173,20 @@ Número da linha do arquivo original	Número da linha diferente	Mudança de linh
             display: inline-block;
             filter: drop-shadow(0 0 5px var(--primary-color));
         }
+
         .feature-card h3 {
             margin-bottom: 12px;
             color: var(--text-color);
             font-size: 1.2rem;
             font-weight: 600;
         }
+
         .feature-card p {
             color: var(--text-muted);
             font-size: 0.95rem;
             line-height: 1.6;
         }
+
         /* --- AGRADECIMENTOS --- */
         .acknowledgements {
             max-width: 900px;
@@ -191,6 +196,7 @@ Número da linha do arquivo original	Número da linha diferente	Mudança de linh
             border-top: 1px solid var(--card-border);
             z-index: 5;
         }
+
         .ack-title {
             font-size: 1.1rem;
             color: var(--primary-color);
@@ -200,12 +206,14 @@ Número da linha do arquivo original	Número da linha diferente	Mudança de linh
             font-weight: 700;
             opacity: 0.9;
         }
+
         .ack-list {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 16px;
         }
+
         .tester-badge {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
@@ -218,14 +226,17 @@ Número da linha do arquivo original	Número da linha diferente	Mudança de linh
             gap: 8px;
             transition: all 0.2s;
         }
+
         .tester-badge:hover {
             border-color: var(--primary-color);
             background: var(--input-bg);
         }
+
         .tester-badge i {
             color: var(--primary-color);
             font-size: 0.8rem;
         }
+
         /* --- FOOTER --- */
         footer {
             padding: 40px 0;
@@ -236,26 +247,33 @@ Número da linha do arquivo original	Número da linha diferente	Mudança de linh
             z-index: 10;
             background: rgba(0, 0, 0, 0.1);
         }
+
         @media (max-width: 768px) {
             .hero h1 {
                 font-size: 2.8rem;
             }
+
             .hero {
                 padding: 60px 20px;
             }
+
             .features {
                 grid-template-columns: 1fr;
                 margin-bottom: 60px;
             }
+
             .ack-list {
                 gap: 10px;
             }
         }
     </style>
 </head>
+
 <body>
+
     <!-- Container dos Efeitos (Chuva ou Pixel) -->
     <div id="effects-container" class="background-effects"></div>
+
     <header>
         <a href="#" class="logo">
             <i class="bi bi-stars"></i> Eloy AI
@@ -264,6 +282,7 @@ Número da linha do arquivo original	Número da linha diferente	Mudança de linh
             <i class="bi bi-moon-stars-fill"></i>
         </button>
     </header>
+
     <div class="hero">
         <div class="robot-icon-wrapper">
             <i class="bi bi-robot"></i>
@@ -275,6 +294,7 @@ Número da linha do arquivo original	Número da linha diferente	Mudança de linh
             Conversar agora <i class="bi bi-arrow-right-short"></i>
         </a>
     </div>
+
     <div class="features">
         <div class="feature-card">
             <i class="bi bi-lightning-charge-fill"></i>
@@ -292,6 +312,7 @@ Número da linha do arquivo original	Número da linha diferente	Mudança de linh
             <p>Sem filas ou horários. A Eloy está sempre pronta para auxiliar sua equipe a qualquer momento.</p>
         </div>
     </div>
+
     <div class="acknowledgements">
         <div class="ack-title"><i class="bi bi-heart-fill"></i> Agradecimentos aos Beta Testers</div>
         <div class="ack-list">
@@ -302,35 +323,43 @@ Número da linha do arquivo original	Número da linha diferente	Mudança de linh
             <div class="tester-badge"><i class="bi bi-person-check-fill"></i> Mayara Costa</div>
         </div>
     </div>
+
     <footer>
         &copy; 2026 Bagda TECH • Desenvolvido com <i class="bi bi-lightning-fill"
             style="color:var(--primary-color)"></i> para eficiência.
     </footer>
+
     <script>
         const html = document.documentElement;
         const toggleBtn = document.getElementById('theme-toggle');
         const icon = toggleBtn.querySelector('i');
         const effectsContainer = document.getElementById('effects-container');
+
         // Carregar Tema
         const savedTheme = localStorage.getItem('theme') || 'dark';
         setTheme(savedTheme);
+
         toggleBtn.addEventListener('click', () => {
             const current = html.getAttribute('data-theme');
             const newTheme = current === 'dark' ? 'light' : 'dark';
             setTheme(newTheme);
         });
+
         function setTheme(theme) {
             html.setAttribute('data-theme', theme);
             localStorage.setItem('theme', theme);
             updateIcon(theme);
             updateEffects(theme);
         }
+
         function updateIcon(theme) {
             icon.className = theme === 'dark' ? 'bi bi-moon-stars-fill' : 'bi bi-brightness-high-fill';
         }
+
         // --- SISTEMA DE EFEITOS (CHUVA vs PIXEL) ---
         function updateEffects(theme) {
             effectsContainer.innerHTML = ''; // Limpa
+
             if (theme === 'dark') {
                 // Efeito Chuva (Rain)
                 const count = 30;
@@ -352,17 +381,21 @@ Número da linha do arquivo original	Número da linha diferente	Mudança de linh
                     // Posição Aleatória
                     el.style.left = Math.random() * 95 + '%';
                     el.style.top = Math.random() * 95 + '%';
+
                     // Tamanho Quadrado
                     const size = Math.random() * 20 + 10; // 10px a 30px
                     el.style.width = size + 'px';
                     el.style.height = size + 'px';
+
                     // Animation variation
                     el.style.animationDuration = (Math.random() * 5 + 5) + 's';
                     el.style.animationDelay = (Math.random() * -5) + 's';
+
                     effectsContainer.appendChild(el);
                 }
             }
         }
     </script>
 </body>
+
 </html>
