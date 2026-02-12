@@ -312,3 +312,58 @@ footer {
         transform: scale(1);
     }
 }
+/* ===== AJUSTE DEFINITIVO HOME RESPONSIVA ===== */
+
+body {
+    margin: 0;
+    overflow-x: hidden;
+}
+
+.hero {
+    min-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    padding: 40px 20px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.hero h1 {
+    font-size: clamp(2rem, 6vw, 3.2rem);
+    line-height: 1.2;
+}
+
+.hero p {
+    max-width: 600px;
+    margin: 20px auto;
+    font-size: 1rem;
+    opacity: 0.85;
+}
+
+.cta-button {
+    margin-top: 25px;
+}
+
+.features {
+    padding: 40px 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.feature-card {
+    text-align: center;
+}
+
+.acknowledgements {
+    padding: 40px 20px;
+    text-align: center;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+}
