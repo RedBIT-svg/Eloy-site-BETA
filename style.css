@@ -4,20 +4,15 @@
     /* --- MODO ESCURO (Gold/Dourado) --- */
     --bg-color: #131314;
     --bg-gradient: linear-gradient(135deg, #131314 0%, #1e1e1f 100%);
-
     --text-color: #E3E3E3;
     --text-muted: #9e9e9e;
-
     --primary-color: #FFD700;
     --primary-hover: #FFC107;
-
     --card-bg: rgba(255, 215, 0, 0.03);
     --card-border: rgba(255, 215, 0, 0.15);
-
     --input-bg: #1E1F20;
     --input-border: rgba(255, 215, 0, 0.2);
     --footer-bg: #131314;
-
     --effect-color: rgba(255, 215, 0, 0.4);
 }
 
@@ -25,20 +20,15 @@
     /* --- MODO CLARO (Purple/Roxo Digital) --- */
     --bg-color: #f8f7ff;
     --bg-gradient: linear-gradient(135deg, #f8f7ff 0%, #f0e6ff 100%);
-
     --text-color: #2e1065;
     --text-muted: #7e22ce;
-
     --primary-color: #9333ea;
     --primary-hover: #7e22ce;
-
     --card-bg: rgba(255, 255, 255, 0.8);
     --card-border: rgba(147, 51, 234, 0.2);
-
     --input-bg: #ffffff;
     --input-border: rgba(147, 51, 234, 0.3);
     --footer-bg: #ffffff;
-
     --effect-color: rgba(147, 51, 234, 0.6);
 }
 
@@ -48,7 +38,10 @@
     margin: 0;
     padding: 0;
     font-family: var(--font-main);
-    transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+    transition: background-color 0.4s ease,
+                color 0.4s ease,
+                border-color 0.4s ease,
+                box-shadow 0.4s ease;
 }
 
 body {
@@ -71,7 +64,6 @@ body {
     background-color: var(--primary-color);
     background-clip: padding-box;
     border: 4px solid transparent;
-    /* Espaço transparente */
     border-radius: 99px;
     min-height: 50px;
 }
@@ -83,7 +75,6 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background-color: var(--primary-hover);
 }
-
 
 /* --- EFEITOS DE FUNDO --- */
 .background-effects {
@@ -113,15 +104,12 @@ body {
         transform: translateY(0);
         opacity: 0;
     }
-
     10% {
         opacity: 0.8;
     }
-
     90% {
         opacity: 0.8;
     }
-
     100% {
         transform: translateY(110vh);
         opacity: 0;
@@ -144,17 +132,14 @@ body {
         transform: scale(0) rotate(0deg);
         opacity: 0;
     }
-
     20% {
         transform: scale(1) rotate(45deg);
         opacity: 1;
     }
-
     50% {
         transform: scale(1.1) rotate(90deg);
         opacity: 0.8;
     }
-
     100% {
         transform: scale(0) rotate(180deg);
         opacity: 0;
@@ -243,7 +228,6 @@ footer {
     0% {
         background-position: 200% 0;
     }
-
     100% {
         background-position: -200% 0;
     }
@@ -301,61 +285,10 @@ footer {
 }
 
 @keyframes bounce {
-
-    0%,
-    80%,
-    100% {
+    0%, 80%, 100% {
         transform: scale(0);
     }
-
     40% {
         transform: scale(1);
     }
-}
-/* ===== HERO ORIGINAL ===== */
-
-.hero {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-
-    padding: 0 20px;
-    position: relative;
-    z-index: 5;
-}
-
-.hero h1 {
-    font-size: clamp(2.2rem, 7vw, 3.5rem);
-    line-height: 1.2;
-    font-weight: 700;
-}
-
-.hero p {
-    max-width: 600px;
-    margin: 20px auto;
-    font-size: 1rem;
-    opacity: 0.85;
-}
-
-.cta-button {
-    margin-top: 30px;
-    padding: 18px 40px;
-    border-radius: 50px;
-    font-size: 1.1rem;
-    border: 2px solid var(--primary-color);
-    background: transparent;
-    color: var(--primary-color);
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    transition: all 0.3s ease;
-}
-
-.cta-button:hover {
-    background: var(--primary-color);
-    color: #000;
-    box-shadow: 0 0 30px var(--primary-color);
 }
