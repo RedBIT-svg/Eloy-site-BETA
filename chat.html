@@ -1,34 +1,32 @@
+
+4 arquivos alterados​
++
+1177
+-
+0
+linhas alteradas
+Pesquisar dentro do código
+ 
+‎chat.html‎
++ 422
+Linhas alteradas: 422 adições e 0 exclusões
+Número da linha do arquivo original	Número da linha diferente	Mudança de linha diferencial
+@@ -0,0 +1,422 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eloy AI - Chat</title>
-
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
-        /* ===== ISOLAMENTO DO CHAT ===== */
-
-        .chat-page {
-            height: 100vh;
-            margin: 0;
+        /* CSS Específico do Chat */
+        body {
             overflow: hidden;
-            background-color: var(--bg-color);
-            background-image: var(--bg-gradient);
-            color: var(--text-color);
-            display: flex;
-            flex-direction: column;
         }
-
-        /* ===== HEADER ===== */
-
-        .chat-page header {
-            flex-shrink: 0;
-            padding: 12px 20px;
+        header {
+            padding: 16px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -36,7 +34,6 @@
             background: var(--bg-color);
             z-index: 10;
         }
-
         .home-link {
             color: var(--text-color);
             font-size: 1rem;
@@ -47,11 +44,9 @@
             opacity: 0.7;
             transition: opacity 0.2s;
         }
-
         .home-link:hover {
             opacity: 1;
         }
-
         .model-name {
             display: flex;
             align-items: center;
@@ -60,50 +55,28 @@
             color: var(--text-color);
             font-size: 1rem;
         }
-
-        /* ===== MAIN (SCROLL AQUI) ===== */
-
-        .chat-page main {
+        /* --- CHAT AREA --- */
+        main {
             flex: 1;
-            overflow-y: auto;
+            /* Scrollbar agora ficará na borda da tela */
+            overflow-y: scroll;
+            /* Força scrollbar sempre visível */
             padding: 20px;
             display: flex;
             flex-direction: column;
             gap: 20px;
             width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            position: relative;
+            /* Ocupa tudo */
             z-index: 5;
-            scrollbar-gutter: stable;
-            -webkit-overflow-scrolling: touch;
+            position: relative;
         }
-
-        .chat-page main::-webkit-scrollbar {
-            width: 8px;
+        /* Wrapper para centralizar mensagens sem limitar a scrollbar */
+        .message-wrapper {
+            width: 100%;
+            display: flex;
+            justify-content: center;
         }
-
-        .chat-page main::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        .chat-page main::-webkit-scrollbar-thumb {
-            background-color: var(--primary-color);
-            border: 2px solid transparent;
-            border-radius: 10px;
-        }
-
-        .chat-page main::-webkit-scrollbar-thumb:hover {
-            background-color: var(--primary-hover);
-        }
-
-        .chat-page main {
-            scrollbar-width: thin;
-            scrollbar-color: var(--primary-color) transparent;
-        }
-
-        /* ===== MENSAGENS ===== */
-
+        /* Mensagens */
         .message {
             display: flex;
             gap: 12px;
@@ -112,16 +85,16 @@
             opacity: 0;
             transform: translateY(10px);
             animation: fadeIn 0.3s forwards ease-out;
+            /* Centralização e Limite */
             width: 100%;
+            max-width: 800px;
         }
-
         @keyframes fadeIn {
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-
         .avatar {
             width: 32px;
             height: 32px;
@@ -132,76 +105,71 @@
             font-size: 16px;
             flex-shrink: 0;
         }
-
         .content {
             display: flex;
             flex-direction: column;
             gap: 4px;
             max-width: 100%;
             flex: 1;
+            /* Ocupa espaço restante */
         }
-
         .content strong {
             font-size: 0.85rem;
             color: var(--text-muted);
             font-weight: 600;
         }
-
         .content p {
             color: var(--text-color);
             white-space: pre-wrap;
         }
-
-        /* ===== FOOTER ===== */
-
-        .chat-page footer {
-            flex-shrink: 0;
+        /* --- FOOTER BAR (Sólido e Destacado) --- */
+        footer {
             padding: 16px;
             background: var(--footer-bg);
             border-top: 1px solid var(--card-border);
             z-index: 20;
             position: relative;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.05);
         }
-
-        /* ===== INPUT ===== */
-
         .input-container {
-            max-width: 900px;
+            max-width: 800px;
             margin: 0 auto;
             position: relative;
+            z-index: 20;
             display: flex;
             align-items: flex-end;
+            /* Alinha botão em baixo se caixa crescer */
             background: var(--input-bg);
             border: 1px solid var(--input-border);
             border-radius: 24px;
             padding: 8px 12px 8px 16px;
             transition: border-color 0.2s;
         }
-
         .input-container:focus-within {
             border-color: var(--primary-color);
             box-shadow: 0 0 0 2px var(--card-border);
         }
-
         .chat-input {
             width: 100%;
             background: transparent;
             border: none;
             padding: 8px 40px 8px 0;
+            /* Espaço para botão */
             color: var(--text-color);
             font-size: 0.95rem;
             resize: none;
             outline: none;
             max-height: 150px;
+            /* Limite de crescimento */
             min-height: 24px;
             line-height: 1.4;
             overflow-y: auto;
         }
-
         .send-btn {
             position: absolute;
             right: 8px;
             bottom: 8px;
+            /* Fica no canto inferior */
             background: transparent;
             color: var(--primary-color);
             border: none;
@@ -214,59 +182,199 @@
             justify-content: center;
             transition: all 0.2s;
         }
-
         .send-btn:hover {
             background: var(--card-bg);
             transform: scale(1.1);
         }
+        /* Barra de Progresso */
+        .progress-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: transparent;
+            width: 0%;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .progress-line.loading {
+            width: 100%;
+            background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+            background-size: 200% 100%;
+            animation: loadingPulse 1.0s infinite linear;
+        }
     </style>
 </head>
-
-<body class="chat-page">
-
+<body>
     <div id="effects-container" class="background-effects"></div>
-
     <header>
-        <a href="index.html" class="home-link">
-            <i class="bi bi-arrow-left"></i> Home
-        </a>
-
+        <a href="index.html" class="home-link" title="Voltar"><i class="bi bi-arrow-left"></i> Home</a>
         <div class="model-name">
             <i class="bi bi-stars" style="color:var(--primary-color)"></i> Eloy AI
         </div>
-
-        <button id="theme-toggle" class="btn-toggle-theme">
+        <button id="theme-toggle" class="btn-toggle-theme" title="Alternar Tema">
             <i class="bi bi-moon-stars-fill"></i>
         </button>
     </header>
-
     <main id="chat-history">
-        <div class="message">
-            <div class="avatar ai"><i class="bi bi-robot"></i></div>
-            <div class="content">
-                <strong>Eloy</strong>
-                <p>Olá! Sou a Eloy. Como posso ajudar você hoje?</p>
+        <div class="message-wrapper">
+            <div class="message">
+                <div class="avatar ai"><i class="bi bi-robot"></i></div>
+                <div class="content">
+                    <strong>Eloy</strong>
+                    <p>Olá! Sou a Eloy. Como posso ajudar você hoje?</p>
+                </div>
             </div>
         </div>
     </main>
-
     <footer>
         <div id="progress-bar" class="progress-line"></div>
-
         <div class="input-container">
-            <textarea id="user-input" class="chat-input"
-                placeholder="Pergunte algo..." rows="1"></textarea>
-            <button id="send-btn" class="send-btn">
-                <i class="bi bi-send-fill"></i>
-            </button>
+            <textarea id="user-input" class="chat-input" placeholder="Pergunte algo..." rows="1"></textarea>
+            <button id="send-btn" class="send-btn"><i class="bi bi-send-fill"></i></button>
         </div>
     </footer>
-
-    <!-- SEU SCRIPT ORIGINAL CONTINUA AQUI SEM ALTERAÇÃO -->
     <script>
-        // MANTIVE SUA LÓGICA ORIGINAL SEM MEXER
-        // (Webhook, sessão, envio, etc.)
+        // --- 1. TEMA & EFEITOS ---
+        const toggleBtn = document.getElementById('theme-toggle');
+        const icon = toggleBtn.querySelector('i');
+        const html = document.documentElement;
+        const effectsContainer = document.getElementById('effects-container');
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        setTheme(savedTheme);
+        toggleBtn.addEventListener('click', () => {
+            const current = html.getAttribute('data-theme');
+            const newTheme = current === 'dark' ? 'light' : 'dark';
+            setTheme(newTheme);
+        });
+        function setTheme(theme) {
+            html.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            icon.className = theme === 'dark' ? 'bi bi-moon-stars-fill' : 'bi bi-brightness-high-fill';
+            effectsContainer.innerHTML = '';
+            // Recriar efeitos (Chuva/Pixel)
+            if (theme === 'dark') {
+                for (let i = 0; i < 30; i++) {
+                    const el = document.createElement('div');
+                    el.className = 'rain-drop';
+                    el.style.left = Math.random() * 100 + '%';
+                    el.style.animationDuration = (Math.random() * 1.5 + 1) + 's';
+                    el.style.animationDelay = Math.random() * 2 + 's';
+                    el.style.height = (Math.random() * 30 + 10) + 'px';
+                    effectsContainer.appendChild(el);
+                }
+            } else {
+                for (let i = 0; i < 20; i++) {
+                    const el = document.createElement('div');
+                    el.className = 'pixel-patch';
+                    el.style.left = Math.random() * 95 + '%';
+                    el.style.top = Math.random() * 95 + '%';
+                    const size = Math.random() * 25 + 15;
+                    el.style.width = size + 'px';
+                    el.style.height = size + 'px';
+                    el.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                    el.style.animationDelay = (Math.random() * 5) + 's';
+                    effectsContainer.appendChild(el);
+                }
+            }
+        }
+        // --- 2. LÓGICA DO BOT ---
+        const chatHistory = document.getElementById('chat-history');
+        const userInput = document.getElementById('user-input');
+        const sendBtn = document.getElementById('send-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const webhookUrl = 'https://luisteste2.app.n8n.cloud/webhook/49f689c9-bc02-4478-bca1-4261e1c74fbe/chat';
+        let sessionId = localStorage.getItem('chatSessionId') || crypto.randomUUID();
+        localStorage.setItem('chatSessionId', sessionId);
+        // Auto-Resize Textarea
+        userInput.addEventListener('input', function () {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+            if (this.value === '') this.style.height = 'auto';
+        });
+        function appendMessage(role, text) {
+            // Wrapper para centralizar
+            const wrapper = document.createElement('div');
+            wrapper.className = 'message-wrapper';
+            const div = document.createElement('div');
+            div.className = 'message';
+            const iconClass = role === 'user' ? 'bi-person-fill' : 'bi-robot';
+            const name = role === 'user' ? 'Você' : 'Eloy';
+            const avatarClass = role === 'user' ? 'user' : 'ai';
+            div.innerHTML = `
+                <div class="avatar ${avatarClass}"><i class="bi ${iconClass}"></i></div>
+                <div class="content"><strong>${name}</strong><p>${text}</p></div>
+            `;
+            wrapper.appendChild(div);
+            chatHistory.appendChild(wrapper);
+            // Scroll final
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+        }
+        async function sendMessage() {
+            const text = userInput.value.trim();
+            if (!text) return;
+            // Reset Input UI
+            userInput.value = '';
+            userInput.style.height = 'auto'; // Reset altura
+            appendMessage('user', text);
+            progressBar.classList.add('loading');
+            userInput.focus();
+            // Loading Msg
+            const loadingWrapper = document.createElement('div');
+            loadingWrapper.className = 'message-wrapper';
+            loadingWrapper.id = 'loading-wrapper';
+            const loadingDiv = document.createElement('div');
+            loadingDiv.className = 'message';
+            loadingDiv.innerHTML = `
+                <div class="avatar ai"><i class="bi bi-robot"></i></div>
+                <div class="content"><strong>Eloy</strong><div class="typing-indicator"><span></span><span></span><span></span></div></div>
+            `;
+            loadingWrapper.appendChild(loadingDiv);
+            chatHistory.appendChild(loadingWrapper);
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+            try {
+                const res = await fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: "sendMessage",
+                        sessionId: sessionId,
+                        chatInput: text
+                    })
+                });
+                loadingWrapper.remove();
+                progressBar.classList.remove('loading');
+                const rawText = await res.text();
+                if (!res.ok) throw new Error(`Erro ${res.status}`);
+                let data;
+                try { data = JSON.parse(rawText); } catch (e) {
+                    appendMessage('ai', rawText || "Sem conteúdo."); return;
+                }
+                let reply = "Sem resposta.";
+                if (Array.isArray(data) && data.length > 0) {
+                    reply = data[0].output || data[0].text || data[0].message || JSON.stringify(data[0]);
+                } else if (typeof data === 'object') {
+                    reply = data.output || data.text || data.message || JSON.stringify(data);
+                } else {
+                    reply = String(data);
+                }
+                appendMessage('ai', reply);
+            } catch (err) {
+                const el = document.getElementById('loading-wrapper');
+                if (el) el.remove();
+                progressBar.classList.remove('loading');
+                console.error(err);
+                appendMessage('ai', '⚠️ Não consegui conectar. Tente novamente.');
+            }
+            userInput.focus();
+        }
+        sendBtn.addEventListener('click', sendMessage);
+        userInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) { // Permite Shift+Enter para quebra de linha
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+        userInput.focus();
     </script>
-
 </body>
 </html>
