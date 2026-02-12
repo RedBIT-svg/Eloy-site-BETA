@@ -36,6 +36,3 @@ function updateIcon(theme) {
         themeIcon.classList.add('bi-sun-fill');
     }
 }
-
-
-
