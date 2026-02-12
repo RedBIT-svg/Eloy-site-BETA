@@ -8,13 +8,29 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
-        /* CSS Específico do Chat */
+        /* --- AJUSTES ESTRUTURAIS CRÍTICOS (User Requested) --- */
+        html,
         body {
+            height: 100vh;
+            /* Altura total da tela */
+            margin: 0;
             overflow: hidden;
+            /* Impede a página de rolar como um todo */
         }
 
+        body {
+            background-color: var(--bg-color);
+            background-image: var(--bg-gradient);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            /* Organiza Header, Main e Footer em coluna */
+        }
+
+        /* --- HEADER (Fixo no topo) --- */
         header {
-            padding: 16px 20px;
+            flex-shrink: 0;
+            padding: 12px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -47,27 +63,65 @@
             font-size: 1rem;
         }
 
-        /* --- CHAT AREA --- */
+        /* --- ÁREA DE CHAT (Onde o Scroll acontece) --- */
         main {
             flex: 1;
-            /* Scrollbar agora ficará na borda da tela */
-            overflow-y: scroll;
-            /* Força scrollbar sempre visível */
+            /* Ocupa todo o espaço disponível entre topo e base */
+            overflow-y: auto;
+            /* Habilita o scroll vertical apenas aqui */
             padding: 20px;
             display: flex;
             flex-direction: column;
             gap: 20px;
             width: 100%;
-            /* Ocupa tudo */
-            z-index: 5;
+            max-width: 900px;
+            /* Largura máxima para leitura no PC */
+            margin: 0 auto;
+            /* Centraliza o chat no PC */
             position: relative;
+            z-index: 5;
+
+            /* Suaviza a barra no PC e Mobile */
+            scrollbar-gutter: stable;
+            -webkit-overflow-scrolling: touch;
+            /* Scroll suave no iPhone */
         }
 
-        /* Wrapper para centralizar mensagens sem limitar a scrollbar */
+        /* --- ESTILIZAÇÃO DA BARRA DE SCROLL (DESIGN MODERNO) --- */
+        main::-webkit-scrollbar {
+            width: 8px;
+            /* Largura da barra */
+        }
+
+        main::-webkit-scrollbar-track {
+            background: transparent;
+            /* Fundo invisível */
+        }
+
+        main::-webkit-scrollbar-thumb {
+            background-color: var(--primary-color);
+            background-clip: padding-box;
+            border: 2px solid transparent;
+            /* Cria um "espaço" em volta da barra */
+            border-radius: 10px;
+        }
+
+        main::-webkit-scrollbar-thumb:hover {
+            background-color: var(--primary-hover);
+        }
+
+        /* Para Firefox */
+        main {
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary-color) transparent;
+        }
+
+        /* Wrapper para centralizar mensagens */
         .message-wrapper {
             width: 100%;
             display: flex;
             justify-content: center;
+            /* Centraliza as mensagens no container */
         }
 
         /* Mensagens */
@@ -79,10 +133,8 @@
             opacity: 0;
             transform: translateY(10px);
             animation: fadeIn 0.3s forwards ease-out;
-
-            /* Centralização e Limite */
             width: 100%;
-            max-width: 800px;
+            /* Remover max-width fixo aqui pois o container pai (main) já limita a 900px */
         }
 
         @keyframes fadeIn {
@@ -109,7 +161,6 @@
             gap: 4px;
             max-width: 100%;
             flex: 1;
-            /* Ocupa espaço restante */
         }
 
         .content strong {
@@ -123,24 +174,49 @@
             white-space: pre-wrap;
         }
 
-        /* --- FOOTER BAR (Sólido e Destacado) --- */
+        /* --- FOOTER (Fixo na base) --- */
         footer {
+            flex-shrink: 0;
             padding: 16px;
             background: var(--footer-bg);
             border-top: 1px solid var(--card-border);
             z-index: 20;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
             position: relative;
-            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.05);
         }
 
+        /* --- RESPONSIVIDADE (MOBILE) --- */
+        @media (max-width: 600px) {
+            main {
+                padding: 15px 10px;
+                gap: 15px;
+            }
+
+            .chat-input {
+                font-size: 16px;
+                /* Evita zoom automático no iOS ao focar */
+                padding: 10px 45px 10px 15px;
+            }
+
+            .message {
+                gap: 8px;
+            }
+
+            .avatar {
+                width: 28px;
+                height: 28px;
+            }
+        }
+
+        /* --- INPUT & OUTROS COMPONENTES --- */
         .input-container {
-            max-width: 800px;
+            max-width: 900px;
+            /* Igual ao main */
             margin: 0 auto;
             position: relative;
             z-index: 20;
             display: flex;
             align-items: flex-end;
-            /* Alinha botão em baixo se caixa crescer */
             background: var(--input-bg);
             border: 1px solid var(--input-border);
             border-radius: 24px;
@@ -158,13 +234,11 @@
             background: transparent;
             border: none;
             padding: 8px 40px 8px 0;
-            /* Espaço para botão */
             color: var(--text-color);
             font-size: 0.95rem;
             resize: none;
             outline: none;
             max-height: 150px;
-            /* Limite de crescimento */
             min-height: 24px;
             line-height: 1.4;
             overflow-y: auto;
@@ -174,7 +248,6 @@
             position: absolute;
             right: 8px;
             bottom: 8px;
-            /* Fica no canto inferior */
             background: transparent;
             color: var(--primary-color);
             border: none;
@@ -210,6 +283,48 @@
             background-size: 200% 100%;
             animation: loadingPulse 1.0s infinite linear;
         }
+
+        @keyframes loadingPulse {
+            0% {
+                background-position: 200% 0;
+            }
+
+            100% {
+                background-position: -200% 0;
+            }
+        }
+
+        /* Typing Dots */
+        .typing-indicator span {
+            display: inline-block;
+            width: 5px;
+            height: 5px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            margin-right: 3px;
+            animation: bounce 1.4s infinite ease-in-out both;
+        }
+
+        .typing-indicator span:nth-child(1) {
+            animation-delay: -0.32s;
+        }
+
+        .typing-indicator span:nth-child(2) {
+            animation-delay: -0.16s;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            80%,
+            100% {
+                transform: scale(0);
+            }
+
+            40% {
+                transform: scale(1);
+            }
+        }
     </style>
 </head>
 
@@ -230,13 +345,12 @@
     </header>
 
     <main id="chat-history">
-        <div class="message-wrapper">
-            <div class="message">
-                <div class="avatar ai"><i class="bi bi-robot"></i></div>
-                <div class="content">
-                    <strong>Eloy</strong>
-                    <p>Olá! Sou a Eloy. Como posso ajudar você hoje?</p>
-                </div>
+        <!-- Wrappers removidos pois o Main já limita a largura, simplificando DOM -->
+        <div class="message">
+            <div class="avatar ai"><i class="bi bi-robot"></i></div>
+            <div class="content">
+                <strong>Eloy</strong>
+                <p>Olá! Sou a Eloy. Como posso ajudar você hoje?</p>
             </div>
         </div>
     </main>
@@ -289,6 +403,7 @@
                     el.className = 'pixel-patch';
                     el.style.left = Math.random() * 95 + '%';
                     el.style.top = Math.random() * 95 + '%';
+                    // Efeito corrigido para ser mais suave no centro
                     const size = Math.random() * 25 + 15;
                     el.style.width = size + 'px';
                     el.style.height = size + 'px';
@@ -317,10 +432,6 @@
         });
 
         function appendMessage(role, text) {
-            // Wrapper para centralizar
-            const wrapper = document.createElement('div');
-            wrapper.className = 'message-wrapper';
-
             const div = document.createElement('div');
             div.className = 'message';
             const iconClass = role === 'user' ? 'bi-person-fill' : 'bi-robot';
@@ -332,8 +443,7 @@
                 <div class="content"><strong>${name}</strong><p>${text}</p></div>
             `;
 
-            wrapper.appendChild(div);
-            chatHistory.appendChild(wrapper);
+            chatHistory.appendChild(div);
             // Scroll final
             chatHistory.scrollTop = chatHistory.scrollHeight;
         }
@@ -351,18 +461,14 @@
             userInput.focus();
 
             // Loading Msg
-            const loadingWrapper = document.createElement('div');
-            loadingWrapper.className = 'message-wrapper';
-            loadingWrapper.id = 'loading-wrapper';
-
             const loadingDiv = document.createElement('div');
             loadingDiv.className = 'message';
+            loadingDiv.id = 'loading-msg';
             loadingDiv.innerHTML = `
                 <div class="avatar ai"><i class="bi bi-robot"></i></div>
                 <div class="content"><strong>Eloy</strong><div class="typing-indicator"><span></span><span></span><span></span></div></div>
             `;
-            loadingWrapper.appendChild(loadingDiv);
-            chatHistory.appendChild(loadingWrapper);
+            chatHistory.appendChild(loadingDiv);
             chatHistory.scrollTop = chatHistory.scrollHeight;
 
             try {
@@ -376,7 +482,7 @@
                     })
                 });
 
-                loadingWrapper.remove();
+                loadingDiv.remove();
                 progressBar.classList.remove('loading');
                 const rawText = await res.text();
 
@@ -398,7 +504,7 @@
                 appendMessage('ai', reply);
 
             } catch (err) {
-                const el = document.getElementById('loading-wrapper');
+                const el = document.getElementById('loading-msg');
                 if (el) el.remove();
                 progressBar.classList.remove('loading');
                 console.error(err);
